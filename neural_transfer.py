@@ -50,15 +50,15 @@ def calc_total_loss(content_featuremaps, style_featuremaps, combination_featurem
 	content_losses_list = []
 	style_losses_list = []
 
-	for content, combined in zip(content_featuremaps, combination_featuremaps[:len(content_featuremaps)]):
+	for content, combination in zip(content_featuremaps, combination_featuremaps[:len(content_featuremaps)]):
 
-		loss = calc_content_loss(content, combined) * alpha
+		loss = calc_content_loss(content, combination) * alpha
 		total_loss += loss
 		content_losses_list.append(loss)
 
-	for style, combined in zip(style_featuremaps, combination_featuremaps[len(content_featuremaps):]):
+	for style, combination in zip(style_featuremaps, combination_featuremaps[len(content_featuremaps):]):
 
-		loss = calc_style_loss(style, combined) * beta
+		loss = calc_style_loss(style, combination) * beta
 		total_loss += loss
 		style_losses_list.append(loss)
 
@@ -84,7 +84,7 @@ def init_model(content_layers, style_layers):
 
 
 
-def neural_transfer(content_image, style_image, output_dirpath, epochs=1000, epoch_length=100, alpha=1, beta=100):
+def neural_transfer(content_image, style_image, output_dirpath, epochs=1000, epoch_length=100, alpha=1, beta=1):
 
 	tf.enable_eager_execution()
 
@@ -126,7 +126,7 @@ def neural_transfer(content_image, style_image, output_dirpath, epochs=1000, epo
 			clipped = tf.clip_by_value(combined_image_tensor, clip_value_min=0, clip_value_max=1)
 			combined_image_tensor.assign(clipped)
 
-			content_losses_array_avg += content_losses/ epoch_length
+			content_losses_array_avg += content_losses / epoch_length
 			style_losses_array_avg += style_losses / epoch_length
 
 		print('Content loss: ', content_losses_array_avg)
