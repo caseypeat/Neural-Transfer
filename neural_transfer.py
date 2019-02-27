@@ -140,7 +140,6 @@ if __name__ == '__main__':
 	content_image = cv2.imread('./input_images/european_building.jpg').astype(np.float32) / 255
 
 	style_image = cv2.imread('./input_images/starry_night.jpg').astype(np.float32) / 255
-	style_image_resized = cv2.resize(style_image, np.shape(content_image)[:2])
 
 	output_dirpath = './output_images'
 
