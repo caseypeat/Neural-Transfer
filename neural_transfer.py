@@ -84,7 +84,7 @@ def init_model(content_layers, style_layers):
 
 
 
-def neural_transfer(content_image, style_image, output_dirpath, epochs=1000, epoch_length=100, alpha=1, beta=1):
+def neural_transfer(content_image, style_image, output_dirpath, epochs=1000, epoch_length=100, alpha=1, beta=10):
 
 	tf.enable_eager_execution()
 
